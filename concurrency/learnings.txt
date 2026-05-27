@@ -1,0 +1,15 @@
+=> Concurrency hai ki 
+   we need sum of 1 to 1e8 toh we can divide that into separate user threads ki let's say 4 thread me tod ke 
+   sab apna apna sum kar raha 
+
+   ab agar cpu hi 1 core hua toh kuch nahi ho sakta 
+
+=> Threads communicate b/w each other by sharing memory
+   mtlb i++ wala example bhi aa jaayega jisme kuch bhi ho skta agr 2 thread i++ karna chahe toh 
+
+=> goroutines : 
+   one single os thread has many goroutines. Go runtime manages their execution on single os thread. but that os thread 
+   itself is managed by os only. context switching b/w os thread is costlier but b/w goroutines is cheaper. 
+   stack size of goroutines : 2 kb , os thread : 8 MB
+
+=> 
