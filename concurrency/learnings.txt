@@ -1,3 +1,6 @@
+
+=> Refer to pdf in the same directory for detailed slide. It's great. 
+
 => Concurrency hai ki 
    we need sum of 1 to 1e8 toh we can divide that into separate user threads ki let's say 4 thread me tod ke 
    sab apna apna sum kar raha 
@@ -12,4 +15,43 @@
    itself is managed by os only. context switching b/w os thread is costlier but b/w goroutines is cheaper. 
    stack size of goroutines : 2 kb , os thread : 8 MB
 
-=> 
+=> server me go handleConn() se server 1 se jyaada client accept karna shuru kar dega 
+
+=> waitgroup is to ensure ki main thread wait kare 
+
+  wg.Add(1) : increases counter by 1 
+  wg.Done() : decreases counter by 1 
+  wg.wait() : wait until counter become 0 
+
+
+=> always use Add() before go func() because func ke andar hi add karein toh ho sakta ki schedule na ho 
+   aur jab Done() call karo toh defer wg.Done() .
+
+=> 	for i := 1; i <= 3; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			fmt.Println(i)
+		}()
+	}
+	wg.Wait()
+
+   for this code goroutines operate on current value of their variables. If we want to use any other state we need to pass 
+   that as parameter to function. isme (i) pass karenge nahi toh 4 print hoga.
+
+=> go me struct/array/native sab by value pass hota hai , map, slice ye dono by default by reference pass hota hai 
+
+=> Go Runtime has mechanism called MN scheduler.
+ 
+  N goroutines can be scheduled on M OS threads that runs on at max GOMAXPROCS number of processors.
+
+ As of Go 1.14 , each goroutines is given a time slice of 10ms. 
+
+
+=> Work Stealing is used to internally manage goroutines between different logical goruntime processors.
+
+=> range based for loop for channel receiver will automatically break on closing channel. Isliye normal me 
+  val, ok := <-ch 
+
+  but range based me bas value lete hain kyunki ok false pe khud hi break ho jaayega loop 
+
