@@ -15,6 +15,11 @@ func main() {
 
 	// TODO: implement timeout for recv on channel ch
 
-	m := <-ch
-	fmt.Println(m)
+	select {
+	case msg := <-ch:
+		fmt.Println("Received", msg)
+	case <-time.After(3 * time.Second):
+		fmt.Println("Timeout")
+	}
+
 }

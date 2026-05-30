@@ -20,4 +20,14 @@ func main() {
 
 	// TODO: multiplex recv on channel - ch1, ch2
 
+	for i := 0; i < 2; i++ {
+		select {
+		case msg1 := <-ch1:
+			println("Received", msg1)
+		case msg2 := <-ch2:
+			println("Received", msg2)
+
+		}
+	}
+
 }
